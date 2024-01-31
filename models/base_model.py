@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module defines a base class for all models in our hbnb clone"""
+"""Defines the BaseModel class."""
 import models
 from uuid import uuid4
 from datetime import datetime
@@ -33,17 +33,12 @@ class BaseModel:
         """
         self.id = str(uuid4())
         self.created_at = self.updated_at = datetime.utcnow()
-
-        # Exclude __class__ attribute
-        kwargs.pop("__class__", None)
-
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                setattr(self, key, value)
-
-        self.updated_at = datetime.utcnow()  # Update the updated_at attribute
+                if key != "__class__":
+                    setattr(self, key, value)
 
     def save(self):
         """Update updated_at with the current datetime."""
@@ -73,3 +68,5 @@ class BaseModel:
         d = self.__dict__.copy()
         d.pop("_sa_instance_state", None)
         return "[{}] ({}) {}".format(type(self).__name__, self.id, d)
+
+
