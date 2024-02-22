@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This script does the same thing as the 0 file
+Flask module
 """
 
 from flask import Flask
