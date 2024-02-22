@@ -2,6 +2,7 @@
 """
 This script does the same thing as the 0 file
 """
+
 from flask import Flask
 
 app = Flask(__name__)
