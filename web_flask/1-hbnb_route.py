@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Flask module
+Import module
 """
 
 from flask import Flask
