@@ -1,24 +1,32 @@
 #!/usr/bin/python3
-"""Module that starts a Flask web application"""
-from flask import Flask, render_template
-from models.state import State
+"""
+Starting my first Flask web application
+"""
 from models import storage
-
+from models.state import State
+from os import environ
+from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route("/states_list", strict_slashes=False)
-def states_list():
-    """Returns an HTML page with a list of all States in the database"""
-    states = list(storage.all(State).values())
-    return render_template("7-states_list.html", states=states)
-
-
 @app.teardown_appcontext
-def close_session(exception):
-    """Closes the session"""
+def close_db(error):
+    """
+    Remove the SQLAlchemy session
+    """
     storage.close()
 
 
-if __name__ == '__main__':
+@app.route('/states_list', strict_slashes=False)
+def list_states():
+    """
+    A route that displays cities in our database in html
+    """
+    states = storage.all(State).values()
+    states = sorted(states, key=lambda k: k.name)
+    return render_template('7-states_list.html', states=states)
+
+
+if __name__ == "__main__":
+    """ Main Function """
     app.run(host='0.0.0.0', port=5000, debug=True)
