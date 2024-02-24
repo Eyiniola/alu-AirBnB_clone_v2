@@ -1,6 +1,13 @@
 #!/usr/bin/python3
 """
-a script that starts a Flask web application
+This is a simple Flask web application.
+
+It defines two routes:
+- Route for the root URL ("/") that displays "Hello HBNB!"
+- Route for "/hbnb" that displays "HBNB"
+
+Requirements:
+- Your web application must be listening on 0.0.0.0, port 5000
 """
 from flask import Flask
 
